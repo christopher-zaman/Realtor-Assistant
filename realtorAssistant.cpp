@@ -39,7 +39,61 @@ void AddProperty(int propID[], double propPrice[], int propRooms[], int &count)
 	count++;
 	return;
 }
+void ReduceAmount(int pID, double amount, int propID[], int propPrice[], int &count)
+{
+	int pID;
+	cout << "Property ID: ";
+	cin >> pID;
 
+	double amount;
+	cout << "Reduction Amount:";
+	cin >> amount;
+
+	for (int i = 0; i < count; i++)
+	{
+		if (pID == propID[i])
+		{
+			propPrice[i] -= amount;
+		}
+	}
+}
+void SearchProperty(double budget, int minRooms,)
+{
+	double budget;
+	cout << "Budget:";
+	cin >> budget;
+
+	int minRooms;
+	cout << "Minimum Rooms:";
+	cin >> minRooms;
+
+	bool found = false;
+
+	for (int i = 0; i < count; i++)
+	{
+		if (propRooms[i] >= minRooms && propPrice[i] <= budget)
+		{
+			cout << propID[i] << " " << propPrice[i] << " " << propRooms[i] << endl;
+			found = true;
+		}
+	}
+
+	if (found == false)
+	{
+		cout << "Could not find any matches." << endl;
+	}
+}
+void DisplayProperties(double sum, double avg)
+{
+	double sum = 0;
+	for (int i = 0; i < count; i++)
+	{
+		cout << propID[i] << " " << propPrice[i] << " " << propRooms[i] << endl;
+		sum += propPrice[i];
+	}
+	double avg = sum / count;
+	cout << "Average is " << avg << endl;
+}
 int main()
 {
 	int propID[100];
@@ -80,61 +134,22 @@ int main()
 		{
 			AddProperty(propID, propPrice, propRooms, count);
 		}
-		else if (choice == 2) 
+
+		else if (choice == 2)
 		{
-			int pID;
-			cout << "Property ID: ";
-			cin >> pID;
-
-			double amount;
-			cout << "Reduction Amount:";
-			cin >> amount;
-
-			for (int i = 0; i < count; i++) 
-			{
-				if (pID == propID[i]) 
-				{
-					propPrice[i] -= amount;
-				}
-			}
+			ReduceAmount(pID, amount);
 		}
+
 		else if (choice == 3)
 		{
-			double budget;
-			cout << "Budget:";
-			cin >> budget;
-
-			int minRooms;
-			cout << "Minimum Rooms:";
-			cin >> minRooms;
-
-			bool found = false;
-
-			for (int i = 0; i < count; i++)
-			{
-				if (propRooms[i] >= minRooms && propPrice[i] <= budget) 
-				{
-					cout << propID[i] << " " << propPrice[i] << " " << propRooms[i] << endl;
-					found = true;
-				}
-			}
-
-			if (found == false)
-			{
-				cout << "Could not find any matches." << endl;
-			}
+			SearchProperty(budget, minRooms);
 		}
+
 		else if (choice == 4)
 		{
-			double sum = 0;
-			for (int i = 0; i < count; i++)
-			{
-				cout << propID[i] << " " << propPrice[i] << " " << propRooms[i] << endl;
-				sum += propPrice[i];
-			}
-			double avg = sum / count;
-			cout << "Average is " << avg << endl;
+			DisplayProperties(sum, avg);
 		}
+
 		else if (choice == 0)
 		{
 			break;
@@ -159,3 +174,4 @@ int main()
 	system("PAUSE");
 	return 0;
 }
+
